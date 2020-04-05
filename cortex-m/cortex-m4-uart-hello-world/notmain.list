@@ -1,0 +1,122 @@
+
+notmain.elf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <_start>:
+   0:	20001000 	andcs	r1, r0, r0
+   4:	00000041 	andeq	r0, r0, r1, asr #32
+   8:	00000047 	andeq	r0, r0, r7, asr #32
+   c:	00000047 	andeq	r0, r0, r7, asr #32
+  10:	00000047 	andeq	r0, r0, r7, asr #32
+  14:	00000047 	andeq	r0, r0, r7, asr #32
+  18:	00000047 	andeq	r0, r0, r7, asr #32
+  1c:	00000047 	andeq	r0, r0, r7, asr #32
+  20:	00000047 	andeq	r0, r0, r7, asr #32
+  24:	00000047 	andeq	r0, r0, r7, asr #32
+  28:	00000047 	andeq	r0, r0, r7, asr #32
+  2c:	00000047 	andeq	r0, r0, r7, asr #32
+  30:	00000047 	andeq	r0, r0, r7, asr #32
+  34:	00000047 	andeq	r0, r0, r7, asr #32
+  38:	00000047 	andeq	r0, r0, r7, asr #32
+  3c:	00000047 	andeq	r0, r0, r7, asr #32
+
+00000040 <reset>:
+  40:	f000 f810 	bl	64 <c_entry>
+  44:	e7ff      	b.n	46 <hang>
+
+00000046 <hang>:
+  46:	e7fe      	b.n	46 <hang>
+
+00000048 <PUT32>:
+  48:	6001      	str	r1, [r0, #0]
+  4a:	4770      	bx	lr
+
+0000004c <print_uart0>:
+  4c:	7803      	ldrb	r3, [r0, #0]
+  4e:	b12b      	cbz	r3, 5c <print_uart0+0x10>
+  50:	4a03      	ldr	r2, [pc, #12]	; (60 <print_uart0+0x14>)
+  52:	6013      	str	r3, [r2, #0]
+  54:	f810 3f01 	ldrb.w	r3, [r0, #1]!
+  58:	2b00      	cmp	r3, #0
+  5a:	d1fa      	bne.n	52 <print_uart0+0x6>
+  5c:	4770      	bx	lr
+  5e:	bf00      	nop
+  60:	4000c000 	andmi	ip, r0, r0
+
+00000064 <c_entry>:
+  64:	4a04      	ldr	r2, [pc, #16]	; (78 <c_entry+0x14>)
+  66:	4905      	ldr	r1, [pc, #20]	; (7c <c_entry+0x18>)
+  68:	2348      	movs	r3, #72	; 0x48
+  6a:	600b      	str	r3, [r1, #0]
+  6c:	f812 3f01 	ldrb.w	r3, [r2, #1]!
+  70:	2b00      	cmp	r3, #0
+  72:	d1fa      	bne.n	6a <c_entry+0x6>
+  74:	4770      	bx	lr
+  76:	bf00      	nop
+  78:	00000080 	andeq	r0, r0, r0, lsl #1
+  7c:	4000c000 	andmi	ip, r0, r0
+
+Disassembly of section .rodata:
+
+00000080 <UART0DR-0x10>:
+  80:	6c6c6548 	cfstr64vs	mvdx6, [ip], #-288	; 0xfffffee0
+  84:	6f77206f 	svcvs	0x0077206f
+  88:	21646c72 	smccs	18114	; 0x46c2
+  8c:	0000000a 	andeq	r0, r0, sl
+
+00000090 <UART0DR>:
+  90:	4000c000 	andmi	ip, r0, r0
+
+Disassembly of section .ARM.attributes:
+
+00000000 <.ARM.attributes>:
+   0:	00002e41 	andeq	r2, r0, r1, asr #28
+   4:	61656100 	cmnvs	r5, r0, lsl #2
+   8:	01006962 	tsteq	r0, r2, ror #18
+   c:	00000024 	andeq	r0, r0, r4, lsr #32
+  10:	726f4305 	rsbvc	r4, pc, #335544320	; 0x14000000
+  14:	2d786574 	cfldr64cs	mvdx6, [r8, #-464]!	; 0xfffffe30
+  18:	0600344d 	streq	r3, [r0], -sp, asr #8
+  1c:	094d070d 	stmdbeq	sp, {r0, r2, r3, r8, r9, sl}^
+  20:	14041202 	strne	r1, [r4], #-514	; 0xfffffdfe
+  24:	17011501 	strne	r1, [r1, -r1, lsl #10]
+  28:	1a011803 	bne	4603c <UART0DR+0x45fac>
+  2c:	Address 0x000000000000002c is out of bounds.
+
+
+Disassembly of section .comment:
+
+00000000 <.comment>:
+   0:	3a434347 	bcc	10d0d24 <UART0DR+0x10d0c94>
+   4:	4e472820 	cdpmi	8, 4, cr2, cr7, cr0, {1}
+   8:	6f542055 	svcvs	0x00542055
+   c:	20736c6f 	rsbscs	r6, r3, pc, ror #24
+  10:	20726f66 	rsbscs	r6, r2, r6, ror #30
+  14:	206d7241 	rsbcs	r7, sp, r1, asr #4
+  18:	65626d45 	strbvs	r6, [r2, #-3397]!	; 0xfffff2bb
+  1c:	64656464 	strbtvs	r6, [r5], #-1124	; 0xfffffb9c
+  20:	6f725020 	svcvs	0x00725020
+  24:	73736563 	cmnvc	r3, #415236096	; 0x18c00000
+  28:	2073726f 	rsbscs	r7, r3, pc, ror #4
+  2c:	30322d39 	eorscc	r2, r2, r9, lsr sp
+  30:	712d3931 			; <UNDEFINED> instruction: 0x712d3931
+  34:	616d2d34 	cmnvs	sp, r4, lsr sp
+  38:	29726f6a 	ldmdbcs	r2!, {r1, r3, r5, r6, r8, r9, sl, fp, sp, lr}^
+  3c:	322e3920 	eorcc	r3, lr, #32, 18	; 0x80000
+  40:	3220312e 	eorcc	r3, r0, #-2147483637	; 0x8000000b
+  44:	31393130 	teqcc	r9, r0, lsr r1
+  48:	20353230 	eorscs	r3, r5, r0, lsr r2
+  4c:	6c657228 	sfmvs	f7, 2, [r5], #-160	; 0xffffff60
+  50:	65736165 	ldrbvs	r6, [r3, #-357]!	; 0xfffffe9b
+  54:	415b2029 	cmpmi	fp, r9, lsr #32
+  58:	612f4d52 			; <UNDEFINED> instruction: 0x612f4d52
+  5c:	392d6d72 	pushcc	{r1, r4, r5, r6, r8, sl, fp, sp, lr}
+  60:	6172622d 	cmnvs	r2, sp, lsr #4
+  64:	2068636e 	rsbcs	r6, r8, lr, ror #6
+  68:	69766572 	ldmdbvs	r6!, {r1, r4, r5, r6, r8, sl, sp, lr}^
+  6c:	6e6f6973 			; <UNDEFINED> instruction: 0x6e6f6973
+  70:	37373220 	ldrcc	r3, [r7, -r0, lsr #4]!
+  74:	5d393935 			; <UNDEFINED> instruction: 0x5d393935
+	...
